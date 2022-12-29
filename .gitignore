@@ -26,3 +26,9 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# direnv
+.direnv
+
+# nix-shell
+local.properties
