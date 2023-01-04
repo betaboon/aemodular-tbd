@@ -63,6 +63,14 @@ export class Device extends Service {
     return plugin.id;
   }
 
+  public async setActivePlugin(channel: number, id: string): Promise<void> {
+    await this.executeCommand({
+      cmd: "/api/v1/setActivePlugin/",
+      ch: channel,
+      id: id,
+    })
+  }
+
   public async getPluginParams(channel: number): Promise<PluginParams> {
     const response = await this.executeCommand({
       cmd: `/api/v1/getPluginParams/${channel}`,

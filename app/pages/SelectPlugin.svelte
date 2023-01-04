@@ -1,0 +1,79 @@
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { goBack } from "svelte-native";
+  import { Template } from "svelte-native/components";
+
+  import { Plugin } from "../lib/tbd/models";
+  import { busy, enableGoBack } from "../stores/app";
+  import {
+    device,
+    plugins,
+    activePluginIdChannel0,
+    activePluginIdChannel1,
+  } from "../stores/device";
+
+  export let channel: number;
+  export let monoOnly: boolean = false;
+
+  const activePluginId =
+    channel == 0 ? activePluginIdChannel0 : activePluginIdChannel1;
+
+  let availablePlugins: Plugin[] = $plugins
+    .filter((e) => (monoOnly ? e.isStereo == false : true))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  let filteredPlugins: Plugin[] = availablePlugins;
+
+  function filterPlugins(event: any) {
+    filteredPlugins = availablePlugins.filter(
+      (item) =>
+        item.name.toLowerCase().indexOf(event.value.toLowerCase()) !== -1
+    );
+  }
+
+  function onItemTap(event: any) {
+    const selectedPlugin = filteredPlugins[event.index];
+    if (selectedPlugin) {
+      $busy = true;
+      $device.setActivePlugin(channel, selectedPlugin.id).then(() => {
+        $activePluginId = selectedPlugin.id;
+        $enableGoBack = false;
+        $busy = false;
+        goBack();
+      });
+    }
+  }
+
+  onMount(() => {
+    $enableGoBack = true;
+  });
+</script>
+
+<page actionBarHidden={true}>
+  <dockLayout stretchLastChild={true}>
+    <textField
+      dock="top"
+      hint="Enter text to filter..."
+      on:textChange={filterPlugins}
+    />
+    <listView dock="bottom" items={filteredPlugins} on:itemTap={onItemTap}>
+      <Template let:item>
+        <label
+          class="plugin-name"
+          text={item.name + (item.isStereo ? " (stereo)" : " (mono)")}
+        />
+        <label class="plugin-hint" text={item.hint} textWrap={true} />
+      </Template>
+    </listView>
+  </dockLayout>
+</page>
+
+<style>
+  textField {
+    font-size: 15;
+  }
+
+  .plugin-name {
+    font-size: 15;
+  }
+</style>
