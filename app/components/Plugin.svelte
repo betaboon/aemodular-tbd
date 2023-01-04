@@ -5,6 +5,7 @@
 
   import EditPlugin from "../pages/EditPlugin.svelte";
   import SelectPlugin from "../pages/SelectPlugin.svelte";
+  import LoadPluginPreset from "../pages/LoadPluginPreset.svelte";
 
   export let channel: number;
   export let disabled: boolean = false;
@@ -60,7 +61,14 @@
           navigate({ page: EditPlugin, props: { channel: channel } });
         }}
       />
-      <button col={2} text="Load preset" isEnabled={false} />
+      <button
+        col={2}
+        text="Load preset"
+        isEnabled={false}
+        on:tap={() => {
+          navigate({ page: LoadPluginPreset, props: { channel: channel } });
+        }}
+      />
       <button col={3} text="Save preset" isEnabled={false} />
     </gridLayout>
   {/if}
