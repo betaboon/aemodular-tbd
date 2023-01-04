@@ -6,6 +6,8 @@
   "dependencies": {
     "@nativescript/core": "~8.4.0",
     "@nativescript/theme": "~3.0.2",
+    "async-mutex": "^0.4.0",
+    "eventemitter3": "^5.0.0",
     "svelte-native": "~1.0.0"
   },
   "devDependencies": {

@@ -44,5 +44,6 @@
 
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
+		<service android:name="com.aemodular.tbd.SerialConnectionService"/>
 	</application>
 </manifest>
