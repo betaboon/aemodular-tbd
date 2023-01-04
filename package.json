@@ -9,6 +9,8 @@
     "svelte-native": "~1.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.0",
+    "@commitlint/config-conventional": "^17.4.0",
     "@nativescript/android": "^8.4.0",
     "@nativescript/types": "~8.4.0",
     "@nativescript/webpack": "~5.0.12",
