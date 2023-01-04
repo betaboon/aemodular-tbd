@@ -27,15 +27,22 @@
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode"
 			android:theme="@style/LaunchScreenTheme"
 			android:hardwareAccelerated="true"
-      		android:launchMode="singleTask"
+			android:launchMode="singleTask"
+			android:directBootAware="true"
 			android:exported="true">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
+				<action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+
+			<meta-data
+				android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+				android:resource="@xml/device_filter" />
+
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
 	</application>
