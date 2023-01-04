@@ -18,8 +18,13 @@ android {
     // Version Information
     versionCode 1
     versionName "1.0.0"
-    
+
     generatedDensities = []
+
+    ndk {
+      abiFilters.clear()
+      abiFilters 'armeabi-v7a','arm64-v8a'
+    }
   }
 
   aaptOptions {
