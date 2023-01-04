@@ -1,5 +1,6 @@
 import { Mutex, Semaphore } from "async-mutex";
 import { Service } from "./service";
+import { Convert, Plugin } from "./models";
 
 export class Device extends Service {
   private commandMutex: Mutex
@@ -20,7 +21,7 @@ export class Device extends Service {
     this.stop();
   }
 
-  async executeCommand(command: object): Promise<string> {
+  private async executeCommand(command: object): Promise<string> {
     const message = JSON.stringify(command);
     let response = "";
 
@@ -37,6 +38,13 @@ export class Device extends Service {
     });
 
     return response;
+  }
+
+  public async getPlugins(): Promise<Plugin[]> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/getPlugins",
+    });
+    return Convert.toPlugin(response)
   }
 
 }

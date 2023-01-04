@@ -20,6 +20,7 @@
     "@nativescript/webpack": "~5.0.12",
     "husky": "^8.0.3",
     "nativescript": "^8.4.0",
+    "quicktype": "^15.1.0",
     "svelte": "~3.44.0",
     "svelte-loader": "^3.1.2",
     "svelte-native-preprocessor": "^1.0.0",
@@ -28,6 +29,7 @@
   },
   "scripts": {
     "prepare": "husky install",
+    "generate-api-models": "quicktype --no-combine-classes --no-runtime-typecheck --out ./app/lib/tbd/models.ts ./api",
     "verify-environment": "ns doctor",
     "build": "ns build android",
     "debug": "ns debug android",

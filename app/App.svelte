@@ -11,7 +11,7 @@
 
     connected = true;
 
-    $device.executeCommand({ cmd: "/api/v1/getPlugins" }).then((v) => {
+    $device.getPlugins().then((v) => {
       console.log(v);
     });
   });

@@ -1,0 +1,14 @@
+[
+  {
+  "id": "Void",
+  "name": "Void",
+  "isStereo": false,
+  "hint": "This plugin does nothing"
+  },
+  {
+  "id": "Another",
+  "name": "Another",
+  "isStereo": false,
+  "hint": "This plugin does nothing"
+  }
+]
