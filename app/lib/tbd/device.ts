@@ -79,4 +79,34 @@ export class Device extends Service {
     return Convert.toPluginParams(response);
   }
 
+  public async setPluginParam(channel: number, id: string, current: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/setPluginParam/",
+      ch: channel,
+      id: id,
+      current: current,
+    })
+    console.log(response);
+  }
+
+  public async setPluginParamCV(channel: number, id: string, cv: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/setPluginParamCV/",
+      ch: channel,
+      id: id,
+      cv: cv,
+    });
+    console.log(response);
+  }
+
+  public async setPluginParamTRIG(channel: number, id: string, trig: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/setPluginParamTRIG/",
+      ch: channel,
+      id: id,
+      trig: trig,
+    });
+    console.log(response);
+  }
+
 }

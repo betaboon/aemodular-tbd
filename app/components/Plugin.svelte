@@ -3,6 +3,7 @@
 
   import { activePluginChannel0, activePluginChannel1 } from "../stores/device";
 
+  import EditPlugin from "../pages/EditPlugin.svelte";
   import SelectPlugin from "../pages/SelectPlugin.svelte";
 
   export let channel: number;
@@ -51,7 +52,14 @@
           });
         }}
       />
-      <button col={1} text="Edit" isEnabled={$activePlugin != undefined} />
+      <button
+        col={1}
+        text="Edit"
+        isEnabled={$activePlugin != undefined}
+        on:tap={() => {
+          navigate({ page: EditPlugin, props: { channel: channel } });
+        }}
+      />
       <button col={2} text="Load preset" isEnabled={false} />
       <button col={3} text="Save preset" isEnabled={false} />
     </gridLayout>
