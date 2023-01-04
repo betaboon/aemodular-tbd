@@ -1,9 +1,14 @@
 // To parse this data:
 //
-//   import { Convert, IOCaps } from "./file";
+//   import { Convert, ActivePlugin, IOCaps } from "./file";
 //
+//   const activePlugin = Convert.toActivePlugin(json);
 //   const iOCaps = Convert.toIOCaps(json);
 //   const plugin = Convert.toPlugin(json);
+
+export interface ActivePlugin {
+    id: string;
+}
 
 export interface IOCaps {
     p:  string;
@@ -20,6 +25,14 @@ export interface Plugin {
 
 // Converts JSON strings to/from your types
 export class Convert {
+    public static toActivePlugin(json: string): ActivePlugin {
+        return JSON.parse(json);
+    }
+
+    public static activePluginToJson(value: ActivePlugin): string {
+        return JSON.stringify(value);
+    }
+
     public static toIOCaps(json: string): IOCaps {
         return JSON.parse(json);
     }

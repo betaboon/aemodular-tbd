@@ -18,6 +18,14 @@
     $device.getPlugins().then((v) => {
       console.log(v);
     });
+
+    $device.getActivePlugin(0).then((v) => {
+      console.log(v);
+    });
+
+    $device.getActivePlugin(1).then((v) => {
+      console.log(v);
+    });
   });
 
   $device.onDisconnected(() => {
