@@ -22,5 +22,6 @@
     "skipLibCheck": true
   },
   "include": ["app", "types"],
+  "files": ["./references.d.ts"],
   "exclude": ["node_modules", "platforms"]
 }
