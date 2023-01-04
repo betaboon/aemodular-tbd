@@ -1,6 +1,12 @@
 <script lang="ts">
   import { Application } from "@nativescript/core";
-  import { device } from "./stores/device";
+  import {
+    device,
+    iocaps,
+    plugins,
+    activePluginIdChannel0,
+    activePluginIdChannel1,
+  } from "./stores/device";
   import Main from "./pages/Main.svelte";
   import Connect from "./pages/Connect.svelte";
 
@@ -12,27 +18,19 @@
     connected = true;
 
     $device.getIOCaps().then((v) => {
-      console.log(v);
+      $iocaps = v;
     });
 
     $device.getPlugins().then((v) => {
-      console.log(v);
+      $plugins = v;
     });
 
     $device.getActivePlugin(0).then((v) => {
-      console.log(v);
+      $activePluginIdChannel0 = v;
     });
 
     $device.getActivePlugin(1).then((v) => {
-      console.log(v);
-    });
-
-    $device.getPluginParams(0).then((v) => {
-      console.log(v);
-    });
-
-    $device.getPluginParams(1).then((v) => {
-      console.log(v);
+      $activePluginIdChannel1 = v;
     });
   });
 
