@@ -109,4 +109,117 @@ export class Device extends Service {
     console.log(response);
   }
 
+  // public async getPresets(channel: number) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/getPresets/",
+  //     ch: channel,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async loadPresets(channel: number, num: number) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/loadPresets/",
+  //     ch: channel,
+  //     number: num,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async savePreset(channel: number, num: number, name: string) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/savePreset/",
+  //     ch: channel,
+  //     number: num,
+  //     name: name,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async getPresetData(id: string) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/getPresetData/",
+  //     id: id,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async setPresetData(id: string, content: string) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/setPresetData/",
+  //     id: id,
+  //     data: content,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async getConfiguration() {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/getConfiguration",
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async setConfiguration(configuration: string) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/setConfiguration",
+  //     configuration: configuration,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async reboot(doCalibration: boolean) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/reboot",
+  //     calibration: doCalibration ? 1 : 0,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async getCalibration() {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/getCalibration",
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async setCalibration(content: string) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/",
+  //     calibration: content,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async getFavourites() {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/favourites/getAll",
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async storeFavourite(num: number, content: string) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/favourites/store/",
+  //     fav: num,
+  //     data: content,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async recallFavourite(num: number) {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/favourites/recall/",
+  //     fav: num,
+  //   });
+  //   console.log(response);
+  // }
+
+  // public async getSromSize() {
+  //   const response = await this.executeCommand({
+  //     cmd: "/api/v1/srom/getSize/",
+  //   });
+  //   console.log(response);
+  // }
+
 }
