@@ -1,0 +1,107 @@
+{
+  "id": "ExamplePlugin",
+  "isStereo": false,
+  "name": "Plugin name",
+  "hint": "Plugin hint",
+  "params": [
+    {
+      "id": "int_param",
+      "name": "Param name",
+      "type": "int",
+      "min": 0,
+      "max": 100,
+      "current": 50
+    },
+    {
+      "id": "int_param_with_hint",
+      "name": "Param name",
+      "hint": "Param hint",
+      "type": "int",
+      "min": 0,
+      "max": 100,
+      "current": 50
+    },
+    {
+      "id": "int_param_with_cv",
+      "name": "Param name",
+      "type": "int",
+      "min": 0,
+      "max": 100,
+      "current": 50,
+      "cv": -1
+    },
+    {
+      "id": "bool_param",
+      "name": "Param name",
+      "type": "bool",
+      "current": 1
+    },
+    {
+      "id": "bool_param_with_hint",
+      "name": "Param name",
+      "hint": "Param hint",
+      "type": "bool",
+      "current": 1
+    },
+    {
+      "id": "bool_param_with_trig",
+      "name": "Param name",
+      "type": "bool",
+      "current": 1,
+      "trig": 0
+    },
+    {
+      "id": "group_param",
+      "name": "Param name",
+      "type": "group",
+      "params": [
+        {
+          "id": "int_param",
+          "name": "Param name",
+          "type": "int",
+          "min": 0,
+          "max": 100,
+          "current": 50
+        },
+        {
+          "id": "int_param_with_hint",
+          "name": "Param name",
+          "hint": "Param hint",
+          "type": "int",
+          "min": 0,
+          "max": 100,
+          "current": 50
+        },
+        {
+          "id": "int_param_with_cv",
+          "name": "Param name",
+          "type": "int",
+          "min": 0,
+          "max": 100,
+          "current": 50,
+          "cv": -1
+        },
+        {
+          "id": "bool_param",
+          "name": "Param name",
+          "type": "bool",
+          "current": 1
+        },
+        {
+          "id": "bool_param_with_hint",
+          "name": "Param name",
+          "hint": "Param hint",
+          "type": "bool",
+          "current": 1
+        },
+        {
+          "id": "bool_param_with_trig",
+          "name": "Param name",
+          "type": "bool",
+          "current": 1,
+          "trig": 0
+        }
+      ]
+    }
+  ]
+}

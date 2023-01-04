@@ -1,6 +1,6 @@
 import { Mutex, Semaphore } from "async-mutex";
 import { Service } from "./service";
-import { Convert, IOCaps, Plugin } from "./models";
+import { Convert, IOCaps, Plugin, PluginParams } from "./models";
 
 export class Device extends Service {
   private commandMutex: Mutex
@@ -61,6 +61,14 @@ export class Device extends Service {
     })
     const plugin = Convert.toActivePlugin(response);
     return plugin.id;
+  }
+
+  public async getPluginParams(channel: number): Promise<PluginParams> {
+    const response = await this.executeCommand({
+      cmd: `/api/v1/getPluginParams/${channel}`,
+      ch: channel,
+    });
+    return Convert.toPluginParams(response);
   }
 
 }

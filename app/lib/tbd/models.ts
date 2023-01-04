@@ -1,10 +1,11 @@
 // To parse this data:
 //
-//   import { Convert, ActivePlugin, IOCaps } from "./file";
+//   import { Convert, ActivePlugin, IOCaps, PluginParams } from "./file";
 //
 //   const activePlugin = Convert.toActivePlugin(json);
 //   const iOCaps = Convert.toIOCaps(json);
 //   const plugin = Convert.toPlugin(json);
+//   const pluginParams = Convert.toPluginParams(json);
 
 export interface ActivePlugin {
     id: string;
@@ -21,6 +22,39 @@ export interface Plugin {
     name:     string;
     isStereo: boolean;
     hint:     string;
+}
+
+export interface PluginParams {
+    id:       string;
+    isStereo: boolean;
+    name:     string;
+    hint:     string;
+    params:   PluginParamsParam[];
+}
+
+export interface PluginParamsParam {
+    id:       string;
+    name:     string;
+    type:     string;
+    min?:     number;
+    max?:     number;
+    current?: number;
+    hint?:    string;
+    cv?:      number;
+    trig?:    number;
+    params?:  ParamParam[];
+}
+
+export interface ParamParam {
+    id:      string;
+    name:    string;
+    type:    string;
+    min?:    number;
+    max?:    number;
+    current: number;
+    hint?:   string;
+    cv?:     number;
+    trig?:   number;
 }
 
 // Converts JSON strings to/from your types
@@ -46,6 +80,14 @@ export class Convert {
     }
 
     public static pluginToJson(value: Plugin[]): string {
+        return JSON.stringify(value);
+    }
+
+    public static toPluginParams(json: string): PluginParams {
+        return JSON.parse(json);
+    }
+
+    public static pluginParamsToJson(value: PluginParams): string {
         return JSON.stringify(value);
     }
 }
