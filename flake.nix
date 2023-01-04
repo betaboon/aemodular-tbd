@@ -57,6 +57,7 @@
         packages = with pkgs; [
           androidPlatformTools
           androidSdk
+          fastlane
           glibc
           jdk
         ];

@@ -11,3 +11,33 @@ jobs:
           fetch-depth: 0
       - name: Run commitlint
         uses: wagoid/commitlint-github-action@v5
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+      - name: Verify build environment
+        run: npx --no ns doctor
+      - name: Build app
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: android build_debug
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk
+          path: app-debug.apk
+          retention-days: 5
