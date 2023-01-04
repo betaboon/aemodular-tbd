@@ -1,20 +1,38 @@
 {
-  "name": "myapp",
+  "name": "aemodular-tbd",
   "main": "app/app.ts",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@nativescript-community/ui-drawer": "^0.1.4",
     "@nativescript/core": "~8.4.0",
     "@nativescript/theme": "~3.0.2",
+    "async-mutex": "^0.4.0",
+    "eventemitter3": "^5.0.0",
     "svelte-native": "~1.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.0",
+    "@commitlint/config-conventional": "^17.4.0",
+    "@nativescript/android": "^8.4.0",
+    "@nativescript/picker": "^4.0.2",
     "@nativescript/types": "~8.4.0",
     "@nativescript/webpack": "~5.0.12",
+    "husky": "^8.0.3",
+    "nativescript": "^8.4.0",
+    "quicktype": "^15.1.0",
     "svelte": "~3.44.0",
     "svelte-loader": "^3.1.2",
     "svelte-native-preprocessor": "^1.0.0",
     "svelte-preprocess": "^4.7.0",
     "typescript": "~4.8.4"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "generate-api-models": "quicktype --no-combine-classes --no-runtime-typecheck --out ./app/lib/tbd/models.ts ./api",
+    "verify-environment": "ns doctor",
+    "build": "ns build android",
+    "debug": "ns debug android",
+    "run": "ns run android"
   }
 }

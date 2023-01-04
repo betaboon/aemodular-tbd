@@ -8,8 +8,7 @@
 		android:largeScreens="true"
 		android:xlargeScreens="true"/>
 
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<!-- required for HMR -->
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -27,16 +26,24 @@
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode"
 			android:theme="@style/LaunchScreenTheme"
 			android:hardwareAccelerated="true"
-      		android:launchMode="singleTask"
+			android:launchMode="singleTask"
+			android:directBootAware="true"
 			android:exported="true">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
+				<action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+
+			<meta-data
+				android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+				android:resource="@xml/device_filter" />
+
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
+		<service android:name="com.aemodular.tbd.SerialConnectionService"/>
 	</application>
 </manifest>

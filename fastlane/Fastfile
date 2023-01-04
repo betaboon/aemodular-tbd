@@ -1,0 +1,15 @@
+fastlane_version '2.211.0'
+
+opt_out_usage
+
+platform :android do
+
+ desc 'Build a debug-build of the Android application.'
+ lane :build_debug do
+  sh("npx", "--no", "ns", "build", "android",
+    "--clean",
+    "--copy-to", "../app-debug.apk"
+  )
+ end
+
+end
