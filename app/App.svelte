@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Application } from "@nativescript/core";
   import { device } from "./stores/device";
-  import Home from "./components/Home.svelte";
+  import Main from "./pages/Main.svelte";
+  import Connect from "./pages/Connect.svelte";
 
   let connected: boolean = false;
 
@@ -35,5 +36,9 @@
 </script>
 
 <frame>
-    <Home />
+  {#if !connected}
+    <Connect />
+  {:else}
+    <Main />
+  {/if}
 </frame>
