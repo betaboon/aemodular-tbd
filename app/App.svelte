@@ -11,6 +11,10 @@
 
     connected = true;
 
+    $device.getIOCaps().then((v) => {
+      console.log(v);
+    });
+
     $device.getPlugins().then((v) => {
       console.log(v);
     });

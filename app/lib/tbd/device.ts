@@ -1,6 +1,6 @@
 import { Mutex, Semaphore } from "async-mutex";
 import { Service } from "./service";
-import { Convert, Plugin } from "./models";
+import { Convert, IOCaps, Plugin } from "./models";
 
 export class Device extends Service {
   private commandMutex: Mutex
@@ -38,6 +38,13 @@ export class Device extends Service {
     });
 
     return response;
+  }
+
+  public async getIOCaps(): Promise<IOCaps> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/getIOCaps",
+    });
+    return Convert.toIOCaps(response);
   }
 
   public async getPlugins(): Promise<Plugin[]> {
