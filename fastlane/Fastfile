@@ -1,15 +1,123 @@
+# vi: ft=ruby
 fastlane_version '2.211.0'
 
 opt_out_usage
 
 platform :android do
 
- desc 'Build a debug-build of the Android application.'
- lane :build_debug do
-  sh("npx", "--no", "ns", "build", "android",
-    "--clean",
-    "--copy-to", "../app-debug.apk"
-  )
- end
+  desc 'Build a debug-build of the Android application.'
+  lane :build_debug do
+    sh("npx", "--no", "ns", "build", "android",
+       "--copy-to", "../app-debug.apk",
+       "--clean",
+    )
+  end
+
+  desc 'Build a release-build APK of the Android application.'
+  lane :build_release_apk do
+    sh("npx", "--no", "ns", "build", "android",
+       "--copy-to", "../app-release.apk",
+       "--clean",
+       "--release",
+       "--env.production",
+       "--key-store-path", "../certs/upload.keystore",
+       "--key-store-password", ENV["KEYSTORE_PASSWORD"],
+       "--key-store-alias", ENV["KEYSTORE_ALIAS"],
+       "--key-store-alias-password", ENV["KEYSTORE_ALIAS_PASSWORD"],
+    )
+  end
+
+  desc 'Build a release-build AAB of the Android application.'
+  lane :build_release_aab do
+    sh("npx", "--no", "ns", "build", "android",
+       "--copy-to", "../app-release.aab",
+       "--aab",
+       "--clean",
+       "--release",
+       "--env.production",
+       "--key-store-path", "../certs/upload.keystore",
+       "--key-store-password", ENV["KEYSTORE_PASSWORD"],
+       "--key-store-alias", ENV["KEYSTORE_ALIAS"],
+       "--key-store-alias-password", ENV["KEYSTORE_ALIAS_PASSWORD"],
+    )
+  end
+
+  desc 'Publish a release of the Android application.'
+  lane :publish do
+    package_name = "com.aemodular.tbd"
+
+    # TODO make release-track configurable through env-variable
+    playstore_track = "production"
+
+    # TODO move key_data to a file instead
+    playstore_json_key_data = ENV["PLAYSTORE_JSON_KEY_DATA"]
+
+    create_semantic_version
+    next_version_name = lane_context[SharedValues::VERSION_NUMBER]
+
+    if next_version_name.nil? then
+      puts "there is no next version. skipping the rest of the lane"
+      next
+    end
+
+    puts "next_version_name: #{next_version_name}"
+
+    create_semantic_changelog
+    changelog = lane_context[SharedValues::FL_CHANGELOG]
+    puts "changelog: #{changelog}"
+
+    current_version_code = 0
+    playstore_tracks = ["production", "beta", "alpha", "internal"]
+    playstore_tracks.each do |track|
+      begin
+        current_version_codes = google_play_track_version_codes(
+          json_key_data: playstore_json_key_data,
+          package_name: package_name,
+          track: track,
+        )
+        if current_version_codes[0] > current_version_code then
+          current_version_code = current_version_codes[0]
+        end
+      rescue
+      end
+    end
+    puts "current_version_code: #{current_version_code}"
+
+    next_version_code = current_version_code + 1
+    puts "next_version_code: #{next_version_code}"
+
+    increment_version_code(
+      gradle_file_path: "App_Resources/Android/app.gradle",
+      version_code: next_version_code,
+    )
+
+    increment_version_name(
+      gradle_file_path: "App_Resources/Android/app.gradle",
+      version_name: next_version_name,
+    )
+
+    build_release_apk
+    build_release_aab
+
+    set_playstore_changelog(version_code: next_version_code)
+
+    upload_to_play_store(
+      track: playstore_track,
+      track_promote_to: playstore_track,
+      json_key_data: playstore_json_key_data,
+      package_name: package_name,
+      aab: "./app-release.aab",
+    )
+
+    set_github_release(
+      repository_name: ENV["GITHUB_REPOSITORY"],
+      api_bearer: ENV["GITHUB_TOKEN"],
+      name: next_version_name,
+      tag_name: next_version_name,
+      description: changelog,
+      commitish: "main",
+      upload_assets: ["./app-release.apk"],
+    )
+  end
 
 end
