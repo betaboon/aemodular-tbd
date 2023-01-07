@@ -69,8 +69,17 @@
 </page>
 
 <style>
+  dockLayout {
+    color: var(--secondary-foreground);
+    background-color: var(--secondary-background);
+  }
+
   textField {
     font-size: 15;
+    color: var(--secondary-foreground);
+    placeholder-color: var(--secondary-separator);
+    stroke-color: red;
+    helper-color: blue;
   }
 
   .plugin-name {

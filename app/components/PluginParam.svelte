@@ -1,6 +1,7 @@
 <script lang="ts">
   import { device, iocaps } from "../stores/device";
   import { PluginParamsParam as Param } from "../lib/tbd/models";
+  import Picker from "../components/Picker.svelte";
 
   export let channel: number;
   export let param: Param;
@@ -8,22 +9,12 @@
   const intChangedDelay = 500;
   let intChangedTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  function pickerItem(text: string, value: number) {
-    return {
-      text: text,
-      value: value,
-      toString: () => {
-        return text;
-      },
-    };
-  }
-
   function pickerItems(options: string[]) {
     let items = [];
     options.forEach((v, i) => {
-      items.push(pickerItem(v, i));
+      items.push({ text: v, value: i });
     });
-    items.unshift(pickerItem("None", -1));
+    items.unshift({ text: "None", value: -1 });
     return items;
   }
 
@@ -45,13 +36,13 @@
   }
 
   function onCvChanged(event: any) {
-    console.log("cv changed:", event.value);
-    $device.setPluginParamCV(channel, param.id, event.value);
+    console.log("cv changed:", event.detail.value);
+    $device.setPluginParamCV(channel, param.id, event.detail.value);
   }
 
   function onTrigChanged(event: any) {
-    console.log("trig changed:", event.value);
-    $device.setPluginParamTRIG(channel, param.id, event.value);
+    console.log("trig changed:", event.detail.value);
+    $device.setPluginParamTRIG(channel, param.id, event.detail.value);
   }
 </script>
 
@@ -76,21 +67,15 @@
       minValue={param.min}
       maxValue={param.max}
       value={param.current}
-      backgroundColor="white"
-      color="white"
       on:valueChange={onIntChanged}
     />
     {#if param.cv != undefined}
       <label col={0} row={2} class="param-value" text="cv-input" />
-      <pickerField
+      <Picker
         col={2}
         row={2}
         items={pickerItems($iocaps?.cv || [])}
-        textField="text"
-        valueField="value"
         selectedValue={param.cv}
-        modalAnimated={false}
-        androidCloseButtonPosition="navigationButton"
         on:selectedValueChange={onCvChanged}
       />
     {/if}
@@ -98,24 +83,21 @@
 {:else if param.type == "bool"}
   <gridLayout class="param bool-param" columns="*, *, *" rows="auto, auto">
     <label col={0} row={0} colSpan={2} class="param-name" text={param.name} />
+    <!-- currently we cannot set color of switch through css -->
     <switch
       col={2}
       row={0}
       checked={param.current == 1}
-      color="white"
+      color="#fff"
       on:checkedChange={onBoolChanged}
     />
     {#if param.trig != undefined}
       <label col={0} row={1} class="param-value" text="trigger-input" />
-      <pickerField
+      <Picker
         col={2}
         row={1}
         items={pickerItems($iocaps?.t || [])}
-        textField="text"
-        valueField="value"
         selectedValue={param.trig}
-        modalAnimated={false}
-        androidCloseButtonPosition="navigationButton"
         on:selectedValueChange={onTrigChanged}
       />
     {/if}
@@ -145,6 +127,8 @@
   slider {
     margin: 0;
     padding: 0;
+    color: var(--secondary-foreground);
+    background-color: var(--secondary-foreground);
   }
 
   switch {

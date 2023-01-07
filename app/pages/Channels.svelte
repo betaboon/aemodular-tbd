@@ -21,3 +21,10 @@
     {/if}
   </stackLayout>
 </page>
+
+<style>
+  stackLayout {
+    color: var(--secondary-foreground);
+    background-color: var(--secondary-background);
+  }
+</style>

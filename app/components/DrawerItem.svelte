@@ -36,15 +36,15 @@
     padding-left: 50;
     z-index: 0;
     text-align: left;
-    font-size: 14;
+    font-size: 15;
     border-bottom-width: 0.5;
-    border-color: #ccc;
-    color: #222222;
+    border-bottom-color: var(--drawer-separator);
+    color: var(--drawer-foreground);
     background-color: transparent;
   }
 
   button:highlighted {
-    color: #222222;
-    background-color: #eeeeee;
+    color: var(--drawer-foreground);
+    background-color: var(--drawer-background-highlighted);
   }
 </style>

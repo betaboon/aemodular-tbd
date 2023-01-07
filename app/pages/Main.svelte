@@ -47,7 +47,7 @@
 </script>
 
 <page androidStatusBarBackground="black">
-  <actionBar title={$title} backgroundColor="black">
+  <actionBar title={$title}>
     <navigationButton icon={navigationIcon} on:tap={onNavigationTap} />
     <actionItem
       icon="res://menu_button_github"
@@ -93,11 +93,17 @@
 </page>
 
 <style>
+  actionBar {
+    color: var(--primary-foreground);
+    background-color: var(--primary-background);
+  }
+
   .busy-overlay {
     width: 100%;
     height: 100%;
     opacity: 0.6;
-    background-color: black;
+    color: var(--primary-foreground);
+    background-color: var(--primary-background);
   }
 
   activityIndicator {
@@ -106,6 +112,6 @@
     margin: 40%;
     vertical-align: center;
     horizontal-align: center;
-    color: white;
+    color: var(--primary-foreground);
   }
 </style>

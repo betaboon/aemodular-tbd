@@ -16,3 +16,17 @@
   font-weight: 400;
 }
 
+.ns-root, .ns-modal {
+  --primary-foreground: #fff;
+  --primary-background: #000;
+
+  --secondary-foreground: #fff;
+  --secondary-background: #333;
+  --secondary-background-highlighted: #666;
+  --secondary-separator: #999;
+
+  --drawer-foreground: #fff;
+  --drawer-background: #444;
+  --drawer-background-highlighted: #777;
+  --drawer-separator: #aaa;
+}

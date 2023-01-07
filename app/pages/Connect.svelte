@@ -6,8 +6,8 @@
 </page>
 
 <style>
-  absoluteLayout {
-    background-color: black;
+  page {
+    background-color: var(--primary-background);
   }
 
   image {
@@ -21,6 +21,7 @@
     width: 100%;
     margin-top: 70%;
     text-align: center;
-    font-size: 30;
+    font-size: 35;
+    color: var(--primary-foreground);
   }
 </style>

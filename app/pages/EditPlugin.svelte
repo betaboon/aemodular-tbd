@@ -32,6 +32,12 @@
 </page>
 
 <style>
+  listView {
+    color: var(--secondary-foreground);
+    background-color: var(--secondary-background);
+  }
+
+  /* workaround for inner padding */
   listView > :global(*) {
     padding: 0;
   }
