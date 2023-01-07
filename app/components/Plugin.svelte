@@ -107,10 +107,20 @@
   }
 
   button {
-    width: 100%;
     height: 45;
+    width: 100%;
+    margin: 0;
     font-size: 15;
+    z-index: 0;
+    border-width: 0;
     border-bottom-width: 0.5;
-    border-color: #ccc;
+    border-bottom-color: var(--secondary-separator);
+    color: var(--secondary-foreground);
+    background-color: transparent;
+  }
+
+  button:highlighted {
+    color: var(--secondary-foreground);
+    background-color: var(--secondary-background-highlighted);
   }
 </style>

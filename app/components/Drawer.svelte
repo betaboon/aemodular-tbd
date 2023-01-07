@@ -38,6 +38,7 @@
 <style>
   .drawer {
     width: 250;
-    background-color: #ffffff;
+    background-color: var(--drawer-background);
+    color: var(--drawer-foreground);
   }
 </style>
