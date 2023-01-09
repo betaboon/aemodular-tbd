@@ -20,6 +20,7 @@
     "@nativescript/webpack": "~5.0.12",
     "conventional-changelog-cli": "^2.2.2",
     "conventional-changelog-conventionalcommits": "^5.0.0",
+    "docsify-cli": "^4.4.4",
     "husky": "^8.0.3",
     "nativescript": "^8.4.0",
     "quicktype": "^15.1.0",
