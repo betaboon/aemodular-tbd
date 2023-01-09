@@ -1,17 +1,36 @@
+<script lang="ts" context="module">
+  import { Drawer } from "@nativescript-community/ui-drawer";
+
+  const drawers: Set<Drawer> = new Set();
+
+  export function open() {
+    drawers.forEach((drawer) => {
+      drawer.open();
+    });
+  }
+
+  export function close() {
+    drawers.forEach((drawer) => {
+      drawer.close();
+    });
+  }
+
+  export function toggle() {
+    drawers.forEach((drawer) => {
+      drawer.toggle();
+    });
+  }
+</script>
+
 <script lang="ts">
+  import { onMount } from "svelte";
   import { setContext } from "svelte";
   import { navigate } from "svelte-native";
   import { Frame } from "@nativescript/core";
-  import { Drawer } from "@nativescript-community/ui-drawer";
-
-  import { key as contextKey } from "../lib/drawer";
+  import { key as contextKey } from "../contexts/drawer";
 
   let contentFrame: Frame;
   let drawer: Drawer;
-
-  export function toggle() {
-    drawer.toggle();
-  }
 
   // @ts-ignore
   function gotoDestination(contentPage) {
@@ -24,6 +43,11 @@
   setContext(contextKey, {
     gotoDestination,
   });
+
+  onMount(() => {
+    drawers.add(drawer);
+    return () => drawers.delete(drawer);
+  });
 </script>
 
 <drawer bind:this={drawer} gestureEnabled={false}>
@@ -31,7 +55,7 @@
     <slot />
   </stackLayout>
   <frame bind:this={contentFrame} prop:mainContent>
-    <slot name="content" />
+    <slot name="defaultContent" />
   </frame>
 </drawer>
 

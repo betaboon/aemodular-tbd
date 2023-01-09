@@ -1,12 +1,8 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { title } from "../stores/app";
-
-  onMount(() => {
-    $title = "Favourites";
-  });
+  import ActionBar from "../components/ActionBar.svelte";
 </script>
 
-<page actionBarHidden={true}>
+<page androidStatusBarBackground="black">
+  <ActionBar title="Favourites" />
   <label text="favourites" />
 </page>

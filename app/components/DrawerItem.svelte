@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import { key as contextKey } from "../lib/drawer";
+  import { key as contextKey } from "../contexts/drawer";
 
   export let icon: string;
   export let text: string;

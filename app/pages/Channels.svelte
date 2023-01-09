@@ -1,19 +1,20 @@
 <script lang="ts">
   import { onMount } from "svelte";
-
-  import { title, busy } from "../stores/app";
+  import { isBusy } from "../stores/app";
   import { activePluginChannel0, activePluginChannel1 } from "../stores/device";
 
+  import ActionBar from "../components/ActionBar.svelte";
   import Plugin from "../components/Plugin.svelte";
 
-  $: $busy = !($activePluginChannel0 && $activePluginChannel1);
+  $: $isBusy = !($activePluginChannel0 && $activePluginChannel1);
 
   onMount(() => {
-    $title = "Channels";
+    console.log("mounting channels");
   });
 </script>
 
-<page actionBarHidden={true}>
+<page androidStatusBarBackground="black">
+  <ActionBar title="Channels" />
   <stackLayout>
     <Plugin channel={0} />
     {#if $activePluginChannel0}
