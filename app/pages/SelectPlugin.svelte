@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { goBack } from "svelte-native";
   import { Template } from "svelte-native/components";
 
   import { Plugin } from "../lib/tbd/models";
-  import { busy, enableGoBack } from "../stores/app";
+  import { isBusy } from "../stores/app";
   import {
     device,
     plugins,
     activePluginIdChannel0,
     activePluginIdChannel1,
   } from "../stores/device";
+
+  import ActionBar from "../components/ActionBar.svelte";
 
   export let channel: number;
   export let monoOnly: boolean = false;
@@ -34,22 +35,21 @@
   function onItemTap(event: any) {
     const selectedPlugin = filteredPlugins[event.index];
     if (selectedPlugin) {
-      $busy = true;
+      $isBusy = true;
       $device.setActivePlugin(channel, selectedPlugin.id).then(() => {
         $activePluginId = selectedPlugin.id;
-        $enableGoBack = false;
-        $busy = false;
+        $isBusy = false;
         goBack();
       });
     }
   }
-
-  onMount(() => {
-    $enableGoBack = true;
-  });
 </script>
 
-<page actionBarHidden={true}>
+<page androidStatusBarBackground="black">
+  <ActionBar
+    title="Select plugin for channel {channel}"
+    navigationButton="back"
+  />
   <dockLayout stretchLastChild={true}>
     <textField
       dock="top"
@@ -78,8 +78,6 @@
     font-size: 15;
     color: var(--secondary-foreground);
     placeholder-color: var(--secondary-separator);
-    stroke-color: red;
-    helper-color: blue;
   }
 
   .plugin-name {

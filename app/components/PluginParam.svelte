@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ApplicationSettings } from "@nativescript/core";
   import { device, iocaps } from "../stores/device";
   import { PluginParamsParam as Param } from "../lib/tbd/models";
   import Picker from "../components/Picker.svelte";
@@ -6,7 +7,10 @@
   export let channel: number;
   export let param: Param;
 
-  const intChangedDelay = 500;
+  const intChangedDelay = ApplicationSettings.getNumber(
+    "__parameter_apply_delay__",
+    500
+  );
   let intChangedTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   function pickerItems(options: string[]) {
@@ -24,10 +28,14 @@
       clearTimeout(intChangedTimeoutId);
       intChangedTimeoutId = null;
     }
-    intChangedTimeoutId = setTimeout(() => {
-      console.log("setting int value to:", e.value);
+    if (intChangedDelay == 0) {
       $device.setPluginParam(channel, param.id, e.value);
-    }, intChangedDelay);
+    } else {
+      intChangedTimeoutId = setTimeout(() => {
+        console.log("setting int value to:", e.value);
+        $device.setPluginParam(channel, param.id, e.value);
+      }, intChangedDelay);
+    }
   }
 
   function onBoolChanged(event: any) {

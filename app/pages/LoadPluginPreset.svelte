@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { enableGoBack } from "../stores/app";
-
-  $enableGoBack = true;
+  import ActionBar from "../components/ActionBar.svelte";
 </script>
 
-<page actionBarHidden={true}>
-  <label text="load plugin preset" />
+<page androidStatusBarBackground="black">
+  <ActionBar title="Load Preset" navigationButton="back" />
+  <label text="load preset" />
 </page>

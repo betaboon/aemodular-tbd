@@ -2,10 +2,11 @@
   import { onMount } from "svelte";
   import { Template } from "svelte-native/components";
 
-  import { busy, enableGoBack } from "../stores/app";
+  import { isBusy } from "../stores/app";
   import { device } from "../stores/device";
   import { PluginParamsParam } from "../lib/tbd/models";
 
+  import ActionBar from "../components/ActionBar.svelte";
   import PluginParam from "../components/PluginParam.svelte";
 
   export let channel: number;
@@ -14,16 +15,16 @@
 
   $device.getPluginParams(channel).then((v) => {
     pluginParams = v.params;
-    $busy = false;
+    $isBusy = false;
   });
 
   onMount(() => {
-    $busy = true;
-    $enableGoBack = true;
+    $isBusy = true;
   });
 </script>
 
-<page actionBarHidden={true}>
+<page androidStatusBarBackground="black">
+  <ActionBar title="Edit Channel {channel}" navigationButton="back" />
   <listView items={pluginParams} separatorColor="transparent">
     <Template let:item>
       <PluginParam {channel} param={item} />
