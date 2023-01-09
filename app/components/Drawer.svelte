@@ -51,9 +51,16 @@
 </script>
 
 <drawer bind:this={drawer} gestureEnabled={false}>
-  <stackLayout class="drawer" prop:leftDrawer>
-    <slot />
-  </stackLayout>
+  <dockLayout prop:leftDrawer class="drawer" stretchLastChild={false}>
+    <stackLayout dock="top" class="top">
+      <slot />
+    </stackLayout>
+    {#if $$slots.bottom}
+      <stackLayout dock="bottom" class="bottom">
+        <slot name="bottom" />
+      </stackLayout>
+    {/if}
+  </dockLayout>
   <frame bind:this={contentFrame} prop:mainContent>
     <slot name="defaultContent" />
   </frame>
@@ -61,8 +68,17 @@
 
 <style>
   .drawer {
+    height: 100%;
     width: 250;
     background-color: var(--drawer-background);
     color: var(--drawer-foreground);
+  }
+
+  .top {
+    margin-top: -0.5;
+  }
+
+  .bottom {
+    margin-bottom: -0.5;
   }
 </style>

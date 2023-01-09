@@ -37,8 +37,8 @@
     z-index: 0;
     text-align: left;
     font-size: 15;
-    border-bottom-width: 0.5;
-    border-bottom-color: var(--drawer-separator);
+    border-width: 0.5 0;
+    border-color: var(--drawer-separator);
     color: var(--drawer-foreground);
     background-color: transparent;
   }
