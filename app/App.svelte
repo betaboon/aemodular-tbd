@@ -17,6 +17,7 @@
   import Connect from "./pages/Connect.svelte";
   import Favourites from "./pages/Favourites.svelte";
   import SampleRom from "./pages/SampleRom.svelte";
+  import Settings from "./pages/Settings.svelte";
 
   let connected: boolean = false;
 
@@ -90,6 +91,12 @@
             text="Sample ROM"
             isEnabled={false}
             destination={SampleRom}
+          />
+          <DrawerItem
+            slot="bottom"
+            icon="res://menu_icon_settings"
+            text="Settings"
+            destination={Settings}
           />
           <Channels slot="defaultContent" />
         </Drawer>
