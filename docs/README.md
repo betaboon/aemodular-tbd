@@ -1,3 +1,1 @@
-# aemodular-tbd
-
-A companion-app for your TBD-module.
+../README.md
