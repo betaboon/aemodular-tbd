@@ -22,27 +22,20 @@
       : $activePlugin.name + ($activePlugin.isStereo ? " (stereo)" : " (mono)");
 </script>
 
-<stackLayout>
-  <gridLayout class="channel-info" columns="auto, *" rows="auto, auto">
-    <label col={0} row={0} class="channel-number" text={channel.toString()} />
-    <label
-      col={1}
-      row={0}
-      class="plugin-name"
-      text={disabled ? "disabled" : pluginName}
-    />
+<stackLayout class="plugin">
+  <label class="plugin-header" text="channel {channel.toString()}" />
+  <stackLayout class="plugin-info">
+    <label class="plugin-name" text={disabled ? "disabled" : pluginName} />
     {#if !disabled}
       <label
-        col={1}
-        row={1}
         class="plugin-hint"
         text={$activePlugin?.hint || "loading ..."}
         textWrap={true}
       />
     {/if}
-  </gridLayout>
+  </stackLayout>
   {#if !disabled}
-    <gridLayout class="channel-actions" columns="*, *, *, *" rows="auto">
+    <gridLayout class="plugin-actions" columns="*, *, *, *" rows="auto">
       <button
         col={0}
         text="Select"
@@ -65,7 +58,7 @@
       <button
         col={2}
         text="Load preset"
-        isEnabled={false}
+        isEnabled={$activePlugin != undefined}
         on:tap={() => {
           navigate({ page: LoadPluginPreset, props: { channel: channel } });
         }}
@@ -73,7 +66,7 @@
       <button
         col={3}
         text="Save preset"
-        isEnabled={false}
+        isEnabled={$activePlugin != undefined}
         on:tap={() => {
           navigate({ page: SavePluginPreset, props: { channel: channel } });
         }}
@@ -83,18 +76,15 @@
 </stackLayout>
 
 <style>
-  stackLayout {
-    height: 30%;
-  }
-
-  .channel-info {
-    padding: 15 0;
-  }
-
-  .channel-number {
-    padding: 0 10;
-    font-size: 45;
+  .plugin-header {
+    padding: 10;
+    font-size: 25;
     vertical-align: center;
+    background-color: var(--secondary-separator);
+  }
+
+  .plugin-info {
+    padding: 15 10;
   }
 
   .plugin-name {
@@ -104,6 +94,7 @@
 
   .plugin-hint {
     font-size: 15;
+    vertical-align: center;
   }
 
   button {
@@ -112,9 +103,6 @@
     margin: 0;
     font-size: 15;
     z-index: 0;
-    border-width: 0;
-    border-bottom-width: 0.5;
-    border-bottom-color: var(--secondary-separator);
     color: var(--secondary-foreground);
     background-color: transparent;
   }

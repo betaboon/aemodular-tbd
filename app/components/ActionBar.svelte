@@ -6,7 +6,8 @@
   import { toggle as toggleDrawer } from "../components/Drawer.svelte";
 
   export let title: string;
-  export let navigationButton: "back" | "custom" | "drawer" = "drawer";
+  export let navigationButton: "back" | "close" | "custom" | "drawer" =
+    "drawer";
 
   const githubUrl = "https://github.com/betaboon/aemodular-tbd";
 
@@ -27,6 +28,8 @@
       toggleDrawer();
     } else if (navigationButton == "back") {
       goBack();
+    } else if (navigationButton == "close") {
+      goBack();
     } else if (navigationButton == "custom") {
       dispatch("navigationTap", {});
     }
@@ -39,6 +42,8 @@
       navigationIcon = iconDrawer;
     } else if (navigationButton == "back") {
       navigationIcon = iconBack;
+    } else if (navigationButton == "close") {
+      navigationIcon = iconClose;
     } else if (navigationButton == "custom") {
       navigationIcon = iconClose;
     }

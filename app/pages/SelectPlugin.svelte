@@ -32,24 +32,22 @@
     );
   }
 
-  function onItemTap(event: any) {
+  async function onItemTap(event: any) {
     const selectedPlugin = filteredPlugins[event.index];
     if (selectedPlugin) {
       $isBusy = true;
-      $device.setActivePlugin(channel, selectedPlugin.id).then(() => {
-        $activePluginId = selectedPlugin.id;
-        $isBusy = false;
-        goBack();
-      });
+
+      await $device.setActivePlugin(channel, selectedPlugin.id);
+      $activePluginId = selectedPlugin.id;
+
+      $isBusy = false;
+      goBack();
     }
   }
 </script>
 
 <page androidStatusBarBackground="black">
-  <ActionBar
-    title="Select plugin for channel {channel}"
-    navigationButton="back"
-  />
+  <ActionBar title="Select - Channel {channel}" navigationButton="back" />
   <dockLayout stretchLastChild={true}>
     <textField
       dock="top"

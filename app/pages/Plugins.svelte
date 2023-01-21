@@ -1,25 +1,22 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { isBusy } from "../stores/app";
   import { activePluginChannel0, activePluginChannel1 } from "../stores/device";
 
   import ActionBar from "../components/ActionBar.svelte";
   import Plugin from "../components/Plugin.svelte";
+  import Favorites from "../components/Favorites.svelte";
 
   $: $isBusy = !($activePluginChannel0 && $activePluginChannel1);
-
-  onMount(() => {
-    console.log("mounting channels");
-  });
 </script>
 
 <page androidStatusBarBackground="black">
-  <ActionBar title="Channels" />
+  <ActionBar title="Plugins" />
   <stackLayout>
     <Plugin channel={0} />
     {#if $activePluginChannel0}
       <Plugin channel={1} disabled={$activePluginChannel0.isStereo} />
     {/if}
+    <Favorites />
   </stackLayout>
 </page>
 

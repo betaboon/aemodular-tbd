@@ -1,0 +1,34 @@
+[
+  {
+    "name": "TBD303",
+    "plug_0": "TBD03",
+    "pre_0": 0,
+    "plug_1": "Void",
+    "pre_1": 0,
+    "ustring": "Cutoff |    Reso Gate  |  Accent"
+  },
+  {
+    "name": "Daits",
+    "plug_0": "TBDaits",
+    "pre_0": 1,
+    "plug_1": "",
+    "pre_1": 0,
+    "ustring": "Model | Harmon."
+  },
+  {
+    "name": "Dings",
+    "plug_0": "TBDings",
+    "pre_0": 2,
+    "plug_1": "",
+    "pre_1": 0,
+    "ustring": "Model"
+  },
+  {
+    "name": "PolyPad",
+    "plug_0": "PolyPad",
+    "pre_0": 3,
+    "plug_1": "Void",
+    "pre_1": 0,
+    "ustring": "Cutoff  |  Chord Trig"
+  }
+]

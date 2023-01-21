@@ -1,0 +1,17 @@
+{
+  "activePresetNumber": 2,
+  "presets": [
+    {
+      "name": "Default",
+      "number": 0
+    },
+    {
+      "name": "PolyPad",
+      "number": 1
+    },
+    {
+      "name": "PolyPad",
+      "number": 2
+    }
+  ]
+}

@@ -107,9 +107,9 @@ export class Service {
   }
 
   private onSerialReadReceivedCallback(context: android.content.Context, intent: android.content.Intent): void {
-    console.log("service - received broadcast: serial-read-received");
-
     const data = intent.getStringExtra(Service.EXTRA_SERIAL_READ_DATA);
+
+    console.log("service - read:", data);
     this.eventEmitter.emit(Service.EVENT_READ_RECEIVED, data);
   }
 

@@ -1,6 +1,6 @@
 import { Mutex, Semaphore } from "async-mutex";
 import { Service } from "./service";
-import { Convert, IOCaps, Plugin, PluginParams } from "./models";
+import { Convert, Favorite, IOCaps, Plugin, PluginParams, Presets } from "./models";
 
 export class Device extends Service {
   private commandMutex: Mutex
@@ -86,7 +86,6 @@ export class Device extends Service {
       id: id,
       current: current,
     })
-    console.log(response);
   }
 
   public async setPluginParamCV(channel: number, id: string, cv: number): Promise<void> {
@@ -96,7 +95,6 @@ export class Device extends Service {
       id: id,
       cv: cv,
     });
-    console.log(response);
   }
 
   public async setPluginParamTRIG(channel: number, id: string, trig: number): Promise<void> {
@@ -106,35 +104,32 @@ export class Device extends Service {
       id: id,
       trig: trig,
     });
-    console.log(response);
   }
 
-  // public async getPresets(channel: number) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/getPresets/",
-  //     ch: channel,
-  //   });
-  //   console.log(response);
-  // }
+  public async getPresets(channel: number): Promise<Presets> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/getPresets/",
+      ch: channel,
+    });
+    return Convert.toPresets(response);
+  }
 
-  // public async loadPresets(channel: number, num: number) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/loadPresets/",
-  //     ch: channel,
-  //     number: num,
-  //   });
-  //   console.log(response);
-  // }
+  public async loadPreset(channel: number, num: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/loadPreset/",
+      ch: channel,
+      number: num,
+    });
+  }
 
-  // public async savePreset(channel: number, num: number, name: string) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/savePreset/",
-  //     ch: channel,
-  //     number: num,
-  //     name: name,
-  //   });
-  //   console.log(response);
-  // }
+  public async savePreset(channel: number, num: number, name: string): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/savePreset/",
+      ch: channel,
+      number: num,
+      name: name,
+    });
+  }
 
   // public async getPresetData(id: string) {
   //   const response = await this.executeCommand({
@@ -191,29 +186,27 @@ export class Device extends Service {
   //   console.log(response);
   // }
 
-  // public async getFavourites() {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/favourites/getAll",
-  //   });
-  //   console.log(response);
-  // }
+  public async getFavorites(): Promise<Favorite[]> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/favorites/getAll",
+    });
+    return Convert.toFavorite(response);
+  }
 
-  // public async storeFavourite(num: number, content: string) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/favourites/store/",
-  //     fav: num,
-  //     data: content,
-  //   });
-  //   console.log(response);
-  // }
+  public async storeFavorite(num: number, favorite: Favorite): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/favorites/store/",
+      fav: num,
+      data: favorite,
+    });
+  }
 
-  // public async recallFavourite(num: number) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/favourites/recall/",
-  //     fav: num,
-  //   });
-  //   console.log(response);
-  // }
+  public async recallFavorite(num: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/favorites/recall/",
+      fav: num,
+    });
+  }
 
   // public async getSromSize() {
   //   const response = await this.executeCommand({

@@ -3,6 +3,7 @@
   import { isBusy } from "./stores/app";
   import {
     device,
+    favorites,
     iocaps,
     plugins,
     activePluginIdChannel0,
@@ -12,10 +13,9 @@
   import Drawer from "./components/Drawer.svelte";
   import DrawerItem from "./components/DrawerItem.svelte";
 
-  import Channels from "./pages/Channels.svelte";
+  import Plugins from "./pages/Plugins.svelte";
   import Configuration from "./pages/Configuration.svelte";
   import Connect from "./pages/Connect.svelte";
-  import Favourites from "./pages/Favourites.svelte";
   import SampleRom from "./pages/SampleRom.svelte";
   import Settings from "./pages/Settings.svelte";
 
@@ -25,6 +25,10 @@
     console.log("app - device connected");
 
     connected = true;
+
+    $device.getFavorites().then((v) => {
+      $favorites = v;
+    });
 
     $device.getIOCaps().then((v) => {
       $iocaps = v;
@@ -70,15 +74,9 @@
       <gridLayout>
         <Drawer>
           <DrawerItem
-            icon="res://menu_icon_channels"
-            text="Channels"
-            destination={Channels}
-          />
-          <DrawerItem
-            icon="res://menu_icon_favourites"
-            text="Favourites"
-            isEnabled={false}
-            destination={Favourites}
+            icon="res://menu_icon_plugins"
+            text="Plugins"
+            destination={Plugins}
           />
           <DrawerItem
             icon="res://menu_icon_configuration"
@@ -98,7 +96,7 @@
             text="Settings"
             destination={Settings}
           />
-          <Channels slot="defaultContent" />
+          <Plugins slot="defaultContent" />
         </Drawer>
         <absoluteLayout
           class="busy-overlay"
