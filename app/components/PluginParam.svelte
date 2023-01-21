@@ -32,24 +32,20 @@
       $device.setPluginParam(channel, param.id, e.value);
     } else {
       intChangedTimeoutId = setTimeout(() => {
-        console.log("setting int value to:", e.value);
         $device.setPluginParam(channel, param.id, e.value);
       }, intChangedDelay);
     }
   }
 
   function onBoolChanged(event: any) {
-    console.log("bool changed:", event.value);
     $device.setPluginParam(channel, param.id, event.value == true ? 1 : 0);
   }
 
   function onCvChanged(event: any) {
-    console.log("cv changed:", event.detail.value);
     $device.setPluginParamCV(channel, param.id, event.detail.value);
   }
 
   function onTrigChanged(event: any) {
-    console.log("trig changed:", event.detail.value);
     $device.setPluginParamTRIG(channel, param.id, event.detail.value);
   }
 </script>
