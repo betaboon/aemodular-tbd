@@ -1,6 +1,6 @@
 import { Mutex, Semaphore } from "async-mutex";
 import { Service } from "./service";
-import { Convert, IOCaps, Plugin, PluginParams, Presets } from "./models";
+import { Convert, Favorite, IOCaps, Plugin, PluginParams, Presets } from "./models";
 
 export class Device extends Service {
   private commandMutex: Mutex
@@ -86,7 +86,6 @@ export class Device extends Service {
       id: id,
       current: current,
     })
-    console.log(response);
   }
 
   public async setPluginParamCV(channel: number, id: string, cv: number): Promise<void> {
@@ -96,7 +95,6 @@ export class Device extends Service {
       id: id,
       cv: cv,
     });
-    console.log(response);
   }
 
   public async setPluginParamTRIG(channel: number, id: string, trig: number): Promise<void> {
@@ -106,7 +104,6 @@ export class Device extends Service {
       id: id,
       trig: trig,
     });
-    console.log(response);
   }
 
   public async getPresets(channel: number): Promise<Presets> {
@@ -189,29 +186,27 @@ export class Device extends Service {
   //   console.log(response);
   // }
 
-  // public async getFavourites() {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/favourites/getAll",
-  //   });
-  //   console.log(response);
-  // }
+  public async getFavorites(): Promise<Favorite[]> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/favorites/getAll",
+    });
+    return Convert.toFavorite(response);
+  }
 
-  // public async storeFavourite(num: number, content: string) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/favourites/store/",
-  //     fav: num,
-  //     data: content,
-  //   });
-  //   console.log(response);
-  // }
+  public async storeFavorite(num: number, favorite: Favorite): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/favorites/store/",
+      fav: num,
+      data: favorite,
+    });
+  }
 
-  // public async recallFavourite(num: number) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/favourites/recall/",
-  //     fav: num,
-  //   });
-  //   console.log(response);
-  // }
+  public async recallFavorite(num: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/favorites/recall/",
+      fav: num,
+    });
+  }
 
   // public async getSromSize() {
   //   const response = await this.executeCommand({

@@ -4,6 +4,7 @@
 
   import ActionBar from "../components/ActionBar.svelte";
   import Plugin from "../components/Plugin.svelte";
+  import Favorites from "../components/Favorites.svelte";
 
   $: $isBusy = !($activePluginChannel0 && $activePluginChannel1);
 </script>
@@ -15,6 +16,7 @@
     {#if $activePluginChannel0}
       <Plugin channel={1} disabled={$activePluginChannel0.isStereo} />
     {/if}
+    <Favorites />
   </stackLayout>
 </page>
 

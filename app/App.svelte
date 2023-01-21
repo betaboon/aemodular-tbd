@@ -3,6 +3,7 @@
   import { isBusy } from "./stores/app";
   import {
     device,
+    favorites,
     iocaps,
     plugins,
     activePluginIdChannel0,
@@ -15,7 +16,6 @@
   import Plugins from "./pages/Plugins.svelte";
   import Configuration from "./pages/Configuration.svelte";
   import Connect from "./pages/Connect.svelte";
-  import Favourites from "./pages/Favourites.svelte";
   import SampleRom from "./pages/SampleRom.svelte";
   import Settings from "./pages/Settings.svelte";
 
@@ -25,6 +25,10 @@
     console.log("app - device connected");
 
     connected = true;
+
+    $device.getFavorites().then((v) => {
+      $favorites = v;
+    });
 
     $device.getIOCaps().then((v) => {
       $iocaps = v;
@@ -73,12 +77,6 @@
             icon="res://menu_icon_plugins"
             text="Plugins"
             destination={Plugins}
-          />
-          <DrawerItem
-            icon="res://menu_icon_favourites"
-            text="Favourites"
-            isEnabled={false}
-            destination={Favourites}
           />
           <DrawerItem
             icon="res://menu_icon_configuration"
