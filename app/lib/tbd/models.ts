@@ -1,11 +1,12 @@
 // To parse this data:
 //
-//   import { Convert, ActivePlugin, IOCaps, PluginParams } from "./file";
+//   import { Convert, ActivePlugin, IOCaps, PluginParams, Presets } from "./file";
 //
 //   const activePlugin = Convert.toActivePlugin(json);
 //   const iOCaps = Convert.toIOCaps(json);
 //   const plugin = Convert.toPlugin(json);
 //   const pluginParams = Convert.toPluginParams(json);
+//   const presets = Convert.toPresets(json);
 
 export interface ActivePlugin {
     id: string;
@@ -57,6 +58,16 @@ export interface ParamParam {
     trig?:   number;
 }
 
+export interface Presets {
+    activePresetNumber: number;
+    presets:            Preset[];
+}
+
+export interface Preset {
+    name:   string;
+    number: number;
+}
+
 // Converts JSON strings to/from your types
 export class Convert {
     public static toActivePlugin(json: string): ActivePlugin {
@@ -88,6 +99,14 @@ export class Convert {
     }
 
     public static pluginParamsToJson(value: PluginParams): string {
+        return JSON.stringify(value);
+    }
+
+    public static toPresets(json: string): Presets {
+        return JSON.parse(json);
+    }
+
+    public static presetsToJson(value: Presets): string {
         return JSON.stringify(value);
     }
 }

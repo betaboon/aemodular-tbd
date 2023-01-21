@@ -65,7 +65,7 @@
       <button
         col={2}
         text="Load preset"
-        isEnabled={false}
+        isEnabled={$activePlugin != undefined}
         on:tap={() => {
           navigate({ page: LoadPluginPreset, props: { channel: channel } });
         }}
@@ -73,7 +73,7 @@
       <button
         col={3}
         text="Save preset"
-        isEnabled={false}
+        isEnabled={$activePlugin != undefined}
         on:tap={() => {
           navigate({ page: SavePluginPreset, props: { channel: channel } });
         }}

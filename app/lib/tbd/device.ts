@@ -1,6 +1,6 @@
 import { Mutex, Semaphore } from "async-mutex";
 import { Service } from "./service";
-import { Convert, IOCaps, Plugin, PluginParams } from "./models";
+import { Convert, IOCaps, Plugin, PluginParams, Presets } from "./models";
 
 export class Device extends Service {
   private commandMutex: Mutex
@@ -109,32 +109,30 @@ export class Device extends Service {
     console.log(response);
   }
 
-  // public async getPresets(channel: number) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/getPresets/",
-  //     ch: channel,
-  //   });
-  //   console.log(response);
-  // }
+  public async getPresets(channel: number): Promise<Presets> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/getPresets/",
+      ch: channel,
+    });
+    return Convert.toPresets(response);
+  }
 
-  // public async loadPresets(channel: number, num: number) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/loadPresets/",
-  //     ch: channel,
-  //     number: num,
-  //   });
-  //   console.log(response);
-  // }
+  public async loadPreset(channel: number, num: number): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/loadPreset/",
+      ch: channel,
+      number: num,
+    });
+  }
 
-  // public async savePreset(channel: number, num: number, name: string) {
-  //   const response = await this.executeCommand({
-  //     cmd: "/api/v1/savePreset/",
-  //     ch: channel,
-  //     number: num,
-  //     name: name,
-  //   });
-  //   console.log(response);
-  // }
+  public async savePreset(channel: number, num: number, name: string): Promise<void> {
+    const response = await this.executeCommand({
+      cmd: "/api/v1/savePreset/",
+      ch: channel,
+      number: num,
+      name: name,
+    });
+  }
 
   // public async getPresetData(id: string) {
   //   const response = await this.executeCommand({
