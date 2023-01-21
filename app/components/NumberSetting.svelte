@@ -40,56 +40,47 @@
     pendingValue != currentValue;
 </script>
 
-<gridLayout columns="auto, *, *" rows="auto, auto">
-  <label row={0} col={0} class="setting-name" text={name} />
+<stackLayout>
+  <label class="setting-name" text={name} />
   <textField
-    row={0}
-    col={1}
     class="setting-value"
     keyboardType="number"
     text={currentValue.toString()}
     on:textChange={validate}
   />
-  <button row={0} col={2} text="save" isEnabled={isPending} on:tap={save} />
   {#if validationError}
-    <label
-      row={1}
-      col={1}
-      colSpan={2}
-      class="validation-error"
-      text={validationError}
-    />
+    <label class="validation-error" text={validationError} />
   {/if}
-</gridLayout>
+  <button text="Save" isEnabled={isPending} on:tap={save} />
+</stackLayout>
 
 <style>
-  gridLayout {
-    margin: 20 10;
-    padding: 0;
-  }
-
-  .setting-name,
-  .setting-value,
-  button {
-    font-size: 20;
-    height: 30;
-    margin: 0;
-    padding: 0;
-  }
-
   .setting-name {
-    margin-right: 10;
+    padding: 15 10 0 10;
+    font-size: 20;
+    vertical-align: center;
   }
 
   .setting-value {
-    text-align: right;
-    border-color: white;
+    font-size: 15;
+  }
+
+  .validation-error {
+    margin-top: -10;
+    padding-left: 15;
+    font-size: 15;
+    color: red;
   }
 
   button {
     height: 45;
-    margin-left: 10;
+    width: 100%;
+    margin: 0;
+    font-size: 15;
     z-index: 0;
+    border-width: 0;
+    border-bottom-width: 0.5;
+    border-bottom-color: var(--secondary-separator);
     color: var(--secondary-foreground);
     background-color: transparent;
   }
@@ -97,10 +88,5 @@
   button:highlighted {
     color: var(--secondary-foreground);
     background-color: var(--secondary-background-highlighted);
-  }
-
-  .validation-error {
-    margin-top: -10;
-    color: red;
   }
 </style>

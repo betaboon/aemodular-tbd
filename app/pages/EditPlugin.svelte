@@ -4,28 +4,27 @@
 
   import { isBusy } from "../stores/app";
   import { device } from "../stores/device";
-  import { PluginParamsParam } from "../lib/tbd/models";
+  import { PluginParams } from "../lib/tbd/models";
 
   import ActionBar from "../components/ActionBar.svelte";
   import PluginParam from "../components/PluginParam.svelte";
 
   export let channel: number;
 
-  let pluginParams: PluginParamsParam[] = [];
+  let pluginParams: PluginParams;
 
-  $device.getPluginParams(channel).then((v) => {
-    pluginParams = v.params;
-    $isBusy = false;
-  });
-
-  onMount(() => {
+  onMount(async () => {
     $isBusy = true;
+
+    pluginParams = await $device.getPluginParams(channel);
+
+    $isBusy = false;
   });
 </script>
 
 <page androidStatusBarBackground="black">
-  <ActionBar title="Edit Channel {channel}" navigationButton="back" />
-  <listView items={pluginParams} separatorColor="transparent">
+  <ActionBar title="Edit - Channel {channel}" navigationButton="back" />
+  <listView items={pluginParams?.params || []} separatorColor="transparent">
     <Template let:item>
       <PluginParam {channel} param={item} />
     </Template>
